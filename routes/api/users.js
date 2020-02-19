@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { check, validationResult } = require("express-validator/check");
+const { check, validationResult } = require("express-validator");
 
 //User model
 const User = require("../../models/User");
@@ -12,8 +12,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 
-//@route    GET api/users
-//@desc     Register route
+//@route    POST api/users
+//@desc     Register users
 //@access   Public
 router.post(
   "/",
