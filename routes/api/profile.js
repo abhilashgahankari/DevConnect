@@ -4,6 +4,8 @@ const auth = require("../../middleware/auth");
 const Profile = require("../..//models/Profile");
 const User = require("../..//models/User");
 const { check, validationResult } = require("express-validator");
+const request = require("request");
+const config = require("config");
 
 //@route    GET api/profile/me
 //@desc     Get current users profile
@@ -338,12 +340,15 @@ router.get("/github/:username", (req, res) => {
   try {
     const options = {
       uri: encodeURI(
-        `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`
+        `https://api.github.com/users/${
+          req.params.username
+        }/repos?per_page=5&sort=created:asc&client_id=${config.get(
+          "githubClientId"
+        )}&client_secret=${config.get("githubSecret")}`
       ),
       method: "GET",
       headers: {
-        "user-agent": "node.js",
-        Authorization: `token ${config.get("githubToken")}`
+        "user-agent": "node.js"
       }
     };
 
