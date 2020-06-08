@@ -18,14 +18,12 @@ const config = require("config");
 router.post(
   "/",
   [
-    check("name", "Name is required")
-      .not()
-      .isEmpty(),
+    check("name", "Name is required").not().isEmpty(),
     check("email", "Enter a valid Email").isEmail(),
     check(
       "password",
       "Please enter a password with 6 or more characters"
-    ).isLength({ min: 6 })
+    ).isLength({ min: 6 }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -44,17 +42,20 @@ router.post(
           .json({ errors: [{ msg: "User already exists" }] });
       }
       //Get users gravatar
-      const avatar = gravatar.url(email, {
-        s: "200",
-        r: "pg",
-        d: "mm"
-      });
+      const avatar = normalize(
+        gravatar.url(email, {
+          s: "200",
+          r: "pg",
+          d: "mm",
+        }),
+        { forceHttps: true }
+      );
 
       user = new User({
         name,
         email,
         avatar,
-        password
+        password,
       });
 
       //Encrypt the password
@@ -66,8 +67,8 @@ router.post(
       //Return the jsonwebtoken
       const payload = {
         user: {
-          id: user.id
-        }
+          id: user.id,
+        },
       };
 
       jwt.sign(

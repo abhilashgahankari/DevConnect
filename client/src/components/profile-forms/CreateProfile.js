@@ -40,7 +40,6 @@ const CreateProfile = ({
     facebook: "",
     linkedin: "",
     youtube: "",
-    youtube: "",
     instagram: "",
   });
 

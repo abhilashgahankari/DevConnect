@@ -7,6 +7,7 @@ const Post = require("../..//models/Post");
 const { check, validationResult } = require("express-validator");
 const request = require("request");
 const config = require("config");
+const normalize = require("normalize-url");
 
 //@route    GET api/profile/me
 //@desc     Get current users profile
@@ -65,7 +66,8 @@ router.post(
     const profileFields = {};
     profileFields.user = req.user.id;
     if (company) profileFields.company = company;
-    if (website) profileFields.website = website;
+    if (website)
+      profileFields.website = normalize(website, { forceHttps: true });
     if (location) profileFields.location = location;
     if (bio) profileFields.bio = bio;
     if (status) profileFields.status = status;
@@ -76,11 +78,18 @@ router.post(
 
     //build social object
     profileFields.social = {};
-    if (youtube) profileFields.social.youtube = youtube;
-    if (twitter) profileFields.social.twitter = twitter;
-    if (linkedin) profileFields.social.linkedin = linkedin;
-    if (facebook) profileFields.social.facebook = facebook;
-    if (instagram) profileFields.social.instagram = instagram;
+    if (youtube)
+      profileFields.social.youtube = normalize(youtube, { forceHttps: true });
+    if (twitter)
+      profileFields.social.twitter = normalize(twitter, { forceHttps: true });
+    if (linkedin)
+      profileFields.social.linkedin = normalize(linkedin, { forceHttps: true });
+    if (facebook)
+      profileFields.social.facebook = normalize(facebook, { forceHttps: true });
+    if (instagram)
+      profileFields.social.instagram = normalize(instagram, {
+        forceHttps: true,
+      });
 
     try {
       let profile = await Profile.findOne({ user: req.user.id });

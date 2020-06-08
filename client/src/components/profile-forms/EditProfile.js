@@ -45,7 +45,7 @@ const EditProfile = ({
       instagram: loading || !profile.instagram ? "" : profile.instagram,
       skills: loading || !profile.skills ? "" : profile.skills.join(","),
     });
-  }, [loading]);
+  }, [loading, getCurrentProfile]);
 
   const {
     company,
