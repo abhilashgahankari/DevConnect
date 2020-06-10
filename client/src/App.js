@@ -41,34 +41,34 @@ const App = () => {
           <section className='container'>
             <Alert />
             <Switch>
-              <Route exact path='/' component={Landing} />
-              <Route exact path='/register' component={Register} />
-              <Route exact path='/login' component={Login} />
-              <Route exact path='/profiles' component={Profiles} />
-              <Route exact path='/profile/:id' component={Profile} />
-              <PrivateRoute exact path='/dashboard' component={Dashboard} />
+              <Route path='/' exact component={Landing} />
+              <Route path='/register' exact component={Register} />
+              <Route path='/login' exact component={Login} />
+              <Route path='/profiles' exact component={Profiles} />
+              <Route path='/profile/:id' exact component={Profile} />
+              <PrivateRoute path='/dashboard' exact component={Dashboard} />
               <PrivateRoute
-                exact
                 path='/create-profile'
+                exact
                 component={CreateProfile}
               />
               <PrivateRoute
-                exact
                 path='/edit-profile'
+                exact
                 component={EditProfile}
               />
               <PrivateRoute
-                exact
                 path='/add-experience'
+                exact
                 component={AddExperience}
               />
               <PrivateRoute
-                exact
                 path='/add-education'
+                exact
                 component={AddEducation}
               />
-              <PrivateRoute exact path='/posts' component={Posts} />
-              <PrivateRoute exact path='/posts/:id' component={Post} />
+              <PrivateRoute path='/posts' exact component={Posts} />
+              <PrivateRoute path='/posts/:id' exact component={Post} />
             </Switch>
           </section>
         </Fragment>
