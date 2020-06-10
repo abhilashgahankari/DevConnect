@@ -1,17 +1,17 @@
 import React, { Fragment, useState } from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addEducation } from "../../actions/profile";
 
-const AddEducation = ({ history, addEducation }) => {
+const AddEducation = ({ addEducation, history }) => {
   const [formData, setFormData] = useState({
     school: "",
     degree: "",
     fieldofstudy: "",
     from: "",
     to: "",
-    current: "",
+    current: false,
     description: "",
   });
 
@@ -32,20 +32,20 @@ const AddEducation = ({ history, addEducation }) => {
 
   return (
     <Fragment>
-      <h1 class='large text-primary'>Add Your Education</h1>
-      <p class='lead'>
-        <i class='fas fa-graduation-cap'></i> Add any school, bootcamp, etc that
-        you have attended
+      <h1 className='large text-primary'>Add Your Education</h1>
+      <p className='lead'>
+        <i className='fas fa-code-branch' /> Add any school or bootcamp that you
+        have attended
       </p>
       <small>* = required field</small>
       <form
-        class='form'
+        className='form'
         onSubmit={(e) => {
           e.preventDefault();
           addEducation(formData, history);
         }}
       >
-        <div class='form-group'>
+        <div className='form-group'>
           <input
             type='text'
             placeholder='* School or Bootcamp'
@@ -55,7 +55,7 @@ const AddEducation = ({ history, addEducation }) => {
             required
           />
         </div>
-        <div class='form-group'>
+        <div className='form-group'>
           <input
             type='text'
             placeholder='* Degree or Certificate'
@@ -65,16 +65,16 @@ const AddEducation = ({ history, addEducation }) => {
             required
           />
         </div>
-        <div class='form-group'>
+        <div className='form-group'>
           <input
             type='text'
-            placeholder='Field Of Study'
+            placeholder='Field of Study'
             name='fieldofstudy'
             value={fieldofstudy}
             onChange={(e) => onChange(e)}
           />
         </div>
-        <div class='form-group'>
+        <div className='form-group'>
           <h4>From Date</h4>
           <input
             type='date'
@@ -83,22 +83,22 @@ const AddEducation = ({ history, addEducation }) => {
             onChange={(e) => onChange(e)}
           />
         </div>
-        <div class='form-group'>
+        <div className='form-group'>
           <p>
             <input
               type='checkbox'
               name='current'
               checked={current}
               value={current}
-              onChange={(e) => {
+              onChange={() => {
                 setFormData({ ...formData, current: !current });
                 toggleDisabled(!toDateDisabled);
               }}
             />{" "}
-            Current School or Bootcamp
+            Current School
           </p>
         </div>
-        <div class='form-group'>
+        <div className='form-group'>
           <h4>To Date</h4>
           <input
             type='date'
@@ -108,7 +108,7 @@ const AddEducation = ({ history, addEducation }) => {
             disabled={toDateDisabled ? "disabled" : ""}
           />
         </div>
-        <div class='form-group'>
+        <div className='form-group'>
           <textarea
             name='description'
             cols='30'
@@ -116,10 +116,10 @@ const AddEducation = ({ history, addEducation }) => {
             placeholder='Program Description'
             value={description}
             onChange={(e) => onChange(e)}
-          ></textarea>
+          />
         </div>
-        <input type='submit' class='btn btn-primary my-1' />
-        <Link class='btn btn-light my-1' to='/dashboard'>
+        <input type='submit' className='btn btn-primary my-1' />
+        <Link className='btn btn-light my-1' to='/dashboard'>
           Go Back
         </Link>
       </form>
