@@ -1,4 +1,5 @@
 const express = require("express");
+const normalize = require("normalize-url");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 
